@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Consulta medica</title>
+
+    <!--JQUERY-->
+    <script src="js/jquery.min.js"></script>
+    
+    <!-- FRAMEWORK BOOTSTRAP para el estilo de la pagina-->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <script src="js/bootstrap.min.js"></script>
+    
+	<!-- Los iconos tipo Solid de Fontawesome-->
+	<script type="text/javascript" th:src="@{/js/all.js}"></script>
+	<link th:href="@{/css/all.css}" rel="stylesheet" />
+	<link th:href="@{/css/solid.css}" rel="stylesheet" />
+
+
+    <!-- Nuestro css-->
+    <link rel="stylesheet" type="text/css" href="css/index.css" th:href="@{/css/index.css}">
+
+</head>
+<body>
+    <div class="modal-dialog text-center">
+        <div class="col-sm-8 main-section">
+            <div class="modal-content">
+            	<br/>
+                <form class="col-12" th:action="@{/login}" method="post" >
+                    <div class="form-group" id="user-input">
+                        <input name="username" type="text" class="form-control" placeholder="Nombre usuario" />
+                    </div>
+                    <div class="form-group" id="pass-input">
+                        <input name="password" type="password" class="form-control" placeholder="Contrasena" />
+                    </div>
+                    <button type="submit" class="btn btn-primary" ><i class="fas fa-sign-in-alt"></i> Ingresar</button>
+                </form>
+                <div th:if="${param.error}" class="alert alert-danger" role="alert">
+		            Usuario no valido
+		        </div>
+		        <div th:if="${param.logout}" class="alert alert-success" role="alert">
+		            Has salido correctamente
+		        </div>
+            </div>
+        </div>
+    </div>
+<!--     <div th:include="modalCambiarContrasena.html" th:remove="tag"></div> -->
+<!--                         <div class="col-12 forgot"> -->
+<!-- 	                    <p><a href="#" data-toggle="modal" data-target="#cambiarContrasenaModal" autocomplete="on">Cambiar contrase&ntilde;a</a> -->
+<!--                 	</div> -->
+</body>
+</html>

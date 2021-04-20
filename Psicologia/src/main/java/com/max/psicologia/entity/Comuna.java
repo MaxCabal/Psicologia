@@ -25,9 +25,9 @@ public class Comuna implements Serializable {
 	@JoinColumn(name="id_region")
 	private Region region;
 
-	//bi-directional many-to-one association to Paciente
+	//bi-directional many-to-one association to Usuario
 	@OneToMany(mappedBy="comuna")
-	private List<Paciente> pacientes;
+	private List<Usuario> usuarios;
 
 	public Comuna() {
 	}
@@ -56,26 +56,26 @@ public class Comuna implements Serializable {
 		this.region = region;
 	}
 
-	public List<Paciente> getPacientes() {
-		return this.pacientes;
+	public List<Usuario> getUsuarios() {
+		return this.usuarios;
 	}
 
-	public void setPacientes(List<Paciente> pacientes) {
-		this.pacientes = pacientes;
+	public void setUsuarios(List<Usuario> usuarios) {
+		this.usuarios = usuarios;
 	}
 
-	public Paciente addPaciente(Paciente paciente) {
-		getPacientes().add(paciente);
-		paciente.setComuna(this);
+	public Usuario addUsuario(Usuario usuario) {
+		getUsuarios().add(usuario);
+		usuario.setComuna(this);
 
-		return paciente;
+		return usuario;
 	}
 
-	public Paciente removePaciente(Paciente paciente) {
-		getPacientes().remove(paciente);
-		paciente.setComuna(null);
+	public Usuario removeUsuario(Usuario usuario) {
+		getUsuarios().remove(usuario);
+		usuario.setComuna(null);
 
-		return paciente;
+		return usuario;
 	}
 
 }

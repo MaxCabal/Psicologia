@@ -25,14 +25,33 @@ public class Intervencion implements Serializable {
 	@Temporal(TemporalType.DATE)
 	private Date fecha;
 
+	private String objetivo;
+
 	private String observaciones;
 
-	private String tratamiento;
+	@Column(name="referencia_instrumento")
+	private int referenciaInstrumento;
 
-	//bi-directional many-to-one association to Paciente
+	@Column(name="visita_id_visita")
+	private int visitaIdVisita;
+
+	//bi-directional many-to-one association to Fase
+	@ManyToOne
+	private Fase fase;
+
+	//bi-directional many-to-one association to Sesion
+	@ManyToOne
+	private Sesion sesion;
+
+	//bi-directional many-to-one association to TipoIntervencion
+	@ManyToOne
+	@JoinColumn(name="id_tipo_intervencion")
+	private TipoIntervencion tipoIntervencion;
+
+	//bi-directional many-to-one association to Usuario
 	@ManyToOne
 	@JoinColumn(name="rut")
-	private Paciente paciente;
+	private Usuario usuario;
 
 	public Intervencion() {
 	}
@@ -61,6 +80,14 @@ public class Intervencion implements Serializable {
 		this.fecha = fecha;
 	}
 
+	public String getObjetivo() {
+		return this.objetivo;
+	}
+
+	public void setObjetivo(String objetivo) {
+		this.objetivo = objetivo;
+	}
+
 	public String getObservaciones() {
 		return this.observaciones;
 	}
@@ -69,20 +96,52 @@ public class Intervencion implements Serializable {
 		this.observaciones = observaciones;
 	}
 
-	public String getTratamiento() {
-		return this.tratamiento;
+	public int getReferenciaInstrumento() {
+		return this.referenciaInstrumento;
 	}
 
-	public void setTratamiento(String tratamiento) {
-		this.tratamiento = tratamiento;
+	public void setReferenciaInstrumento(int referenciaInstrumento) {
+		this.referenciaInstrumento = referenciaInstrumento;
 	}
 
-	public Paciente getPaciente() {
-		return this.paciente;
+	public int getVisitaIdVisita() {
+		return this.visitaIdVisita;
 	}
 
-	public void setPaciente(Paciente paciente) {
-		this.paciente = paciente;
+	public void setVisitaIdVisita(int visitaIdVisita) {
+		this.visitaIdVisita = visitaIdVisita;
+	}
+
+	public Fase getFase() {
+		return this.fase;
+	}
+
+	public void setFase(Fase fase) {
+		this.fase = fase;
+	}
+
+	public Sesion getSesion() {
+		return this.sesion;
+	}
+
+	public void setSesion(Sesion sesion) {
+		this.sesion = sesion;
+	}
+
+	public TipoIntervencion getTipoIntervencion() {
+		return this.tipoIntervencion;
+	}
+
+	public void setTipoIntervencion(TipoIntervencion tipoIntervencion) {
+		this.tipoIntervencion = tipoIntervencion;
+	}
+
+	public Usuario getUsuario() {
+		return this.usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
 	}
 
 }

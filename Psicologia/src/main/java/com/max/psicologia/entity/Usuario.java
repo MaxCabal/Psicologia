@@ -2,6 +2,7 @@ package com.max.psicologia.entity;
 
 import java.io.Serializable;
 import javax.persistence.*;
+import java.util.Date;
 import java.util.List;
 
 
@@ -15,59 +16,120 @@ public class Usuario implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@Column(name="id_usuario")
-	private int idUsuario;
+	private String rut;
 
-	private String contrasena;
+	private String apellidos;
 
-	private String nombre;
+	private String direccion;
 
-	//bi-directional many-to-many association to Rol
-	@ManyToMany
-	@JoinTable(
-		name="usuario_rol"
-		, joinColumns={
-			@JoinColumn(name="id_usuario")
-			}
-		, inverseJoinColumns={
-			@JoinColumn(name="id_rol")
-			}
-		)
-	private List<Rol> rols;
+	@Temporal(TemporalType.DATE)
+	@Column(name="fec_ingreso")
+	private Date fecIngreso;
+
+	@Temporal(TemporalType.DATE)
+	@Column(name="fec_nac")
+	private Date fecNac;
+
+	private String nombres;
+
+	private String telefono;
+
+	//bi-directional many-to-one association to Intervencion
+	@OneToMany(mappedBy="usuario")
+	private List<Intervencion> intervencions;
+
+	//bi-directional many-to-one association to Comuna
+	@ManyToOne
+	@JoinColumn(name="id_comuna")
+	private Comuna comuna;
 
 	public Usuario() {
 	}
 
-	public int getIdUsuario() {
-		return this.idUsuario;
+	public String getRut() {
+		return this.rut;
 	}
 
-	public void setIdUsuario(int idUsuario) {
-		this.idUsuario = idUsuario;
+	public void setRut(String rut) {
+		this.rut = rut;
 	}
 
-	public String getContrasena() {
-		return this.contrasena;
+	public String getApellidos() {
+		return this.apellidos;
 	}
 
-	public void setContrasena(String contrasena) {
-		this.contrasena = contrasena;
+	public void setApellidos(String apellidos) {
+		this.apellidos = apellidos;
 	}
 
-	public String getNombre() {
-		return this.nombre;
+	public String getDireccion() {
+		return this.direccion;
 	}
 
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
+	public void setDireccion(String direccion) {
+		this.direccion = direccion;
 	}
 
-	public List<Rol> getRols() {
-		return this.rols;
+	public Date getFecIngreso() {
+		return this.fecIngreso;
 	}
 
-	public void setRols(List<Rol> rols) {
-		this.rols = rols;
+	public void setFecIngreso(Date fecIngreso) {
+		this.fecIngreso = fecIngreso;
+	}
+
+	public Date getFecNac() {
+		return this.fecNac;
+	}
+
+	public void setFecNac(Date fecNac) {
+		this.fecNac = fecNac;
+	}
+
+	public String getNombres() {
+		return this.nombres;
+	}
+
+	public void setNombres(String nombres) {
+		this.nombres = nombres;
+	}
+
+	public String getTelefono() {
+		return this.telefono;
+	}
+
+	public void setTelefono(String telefono) {
+		this.telefono = telefono;
+	}
+
+	public List<Intervencion> getIntervencions() {
+		return this.intervencions;
+	}
+
+	public void setIntervencions(List<Intervencion> intervencions) {
+		this.intervencions = intervencions;
+	}
+
+	public Intervencion addIntervencion(Intervencion intervencion) {
+		getIntervencions().add(intervencion);
+		intervencion.setUsuario(this);
+
+		return intervencion;
+	}
+
+	public Intervencion removeIntervencion(Intervencion intervencion) {
+		getIntervencions().remove(intervencion);
+		intervencion.setUsuario(null);
+
+		return intervencion;
+	}
+
+	public Comuna getComuna() {
+		return this.comuna;
+	}
+
+	public void setComuna(Comuna comuna) {
+		this.comuna = comuna;
 	}
 
 }
