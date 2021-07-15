@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.2" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_2.xsd">
+	<persistence-unit name="demo">
+		<class>com.max.psicologia.entity.Comuna</class>
+		<class>com.max.psicologia.entity.Estado</class>
+		<class>com.max.psicologia.entity.Fase</class>
+		<class>com.max.psicologia.entity.Instrumento</class>
+		<class>com.max.psicologia.entity.Intervencion</class>
+		<class>com.max.psicologia.entity.IntervencionTipousuario</class>
+		<class>com.max.psicologia.entity.Objetivo</class>
+		<class>com.max.psicologia.entity.Profesional</class>
+		<class>com.max.psicologia.entity.Region</class>
+		<class>com.max.psicologia.entity.Rol</class>
+		<class>com.max.psicologia.entity.Sesion</class>
+		<class>com.max.psicologia.entity.TipoIntervencion</class>
+		<class>com.max.psicologia.entity.TipoUsuario</class>
+		<class>com.max.psicologia.entity.Usuario</class>
+	</persistence-unit>
+</persistence>

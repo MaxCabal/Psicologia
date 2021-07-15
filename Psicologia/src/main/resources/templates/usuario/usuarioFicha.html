@@ -1,0 +1,112 @@
+
+<form class="form" role="form" autocomplete="off" th:object="${usuario}"  th:action="@{/usuarios}" method="post">
+	<div class="form-group row">
+		<label class="col-lg-3 col-form-label form-control-label">Rut</label>
+		<div class="col-lg-9">
+			<input id="rut" class="form-control" type="text" data-inputmask="'mask': '9[9.999.999]-[9|K|k]'" th:field="${usuario.rut}" th:readonly="${usuario.rut != null}">
+			<div class="alert-danger" th:if="${#fields.hasErrors('rut')}" th:errors="*{rut}"></div>
+		</div>
+	</div>
+	<div class="form-group row">
+		<label class="col-lg-3 col-form-label form-control-label">Nombres</label>
+		<div class="col-lg-9">
+			<input id="nombres" class="form-control" type="text" maxlength="45" th:field="${usuario.nombres}">
+			<div class="alert-danger" th:if="${#fields.hasErrors('nombres')}" th:errors="*{nombres}" th:text="${err}"></div>
+		</div>
+	</div>
+	<div class="form-group row">
+		<label class="col-lg-3 col-form-label form-control-label">Apellidos</label>
+		<div class="col-lg-9">
+			<input id="apellidos" class="form-control" type="text" maxlength="45" th:field="${usuario.apellidos}">
+			<div class="alert-danger" th:if="${#fields.hasErrors('apellidos')}" th:errors="*{apellidos}" th:text="${err}"></div>
+		</div>
+	</div>
+	<div class="form-group row">
+		<label class="col-lg-3 col-form-label form-control-label">Fecha	de Nacimiento</label>
+		<div class="col-lg-9" >
+			<input class="form-control" type="text" id="fechanacimiento" th:field="${usuario.fecNac}">
+			<div class="alert-danger" th:if="${#fields.hasErrors('fecNac')}" th:errors="*{fecNac}" th:text="${err}"></div>
+		</div>
+	</div>
+	<div class="form-group row">
+		<label class="col-lg-3 col-form-label form-control-label">Fecha	de Ingreso</label>
+		<div class="col-lg-9" >
+			<input class="form-control" type="text" id="fechaingreso" th:field="${usuario.fecIngreso}">
+			<div class="alert-danger" th:if="${#fields.hasErrors('fecIngreso')}" th:errors="*{fecIngreso}" th:text="${err}"></div>
+		</div>
+	</div>
+	<div class="form-group row">
+		<label class="col-lg-3 col-form-label form-control-label">Direccion</label>
+		<div class="col-lg-9">
+			<input id="direccion" class="form-control" type="text" maxlength="45" th:field="${usuario.direccion}">
+			<div class="alert-danger" th:if="${#fields.hasErrors('direccion')}" th:errors="*{direccion}" th:text="${err}"></div>
+		</div>
+	</div>
+		<div class="form-group row">
+		<label class="col-lg-3 col-form-label form-control-label">Telefono</label>
+		<div class="col-lg-9">
+			<input id="telefono" class="form-control" type="text" data-inputmask="'mask': '9-99999999'" th:field="${usuario.telefono}" th:text="${err}">
+		</div>
+	</div>
+	<div class="form-group row">
+		<label class="col-lg-3 col-form-label form-control-label">Region</label>
+		<div class="col-lg-9">
+			<select class="form-control" id="region">
+				<option th:each="region :${regiones}" th:value="${region.idRegion}" th:text="${region.region}" th:selected="(${region.idRegion == regionSelected})" >
+				</option>
+			</select>
+		</div>
+	</div>
+	<div class="form-group row">
+		<label class="col-lg-3 col-form-label form-control-label">Comuna</label>
+		<div class="col-lg-9">
+			<select class="form-control" id="comuna" th:field="${usuario.comuna}">
+ 				<option th:each="comuna :${comunas}" th:value="${comuna.idComuna}" th:text="${comuna.comuna}" th:selected="(${comuna.idComuna == comunaSelected})">
+ 				</option>
+			</select>
+		</div>
+	</div>
+	<div class="form-group row">
+		<div class="col-lg-12 text-center">
+			<input type="reset" class="btn btn-secondary" value="Limpiar">
+			<input type="submit" class="btn btn-primary" value="Guardar">
+		</div>
+	</div>
+	<div class="alert alert-danger text-center" th:if="${formErrorMensaje}" th:text="${formErrorMensaje}">Error Message</div>
+<!-- 	<div class="alert alert-success text-center d-none" id="formSuccess" th:if="${editMode}" >Success MEssage</div> -->
+</form>
+
+<script>
+	$(document).ready(function(){
+		$(":input").inputmask();
+	});
+	
+    $("#region").change(function() {
+    	var region = $("#region").val();
+    	$.ajax({
+            type : 'GET',
+            url : "/updateComuna/"+region,
+            success: function(result) {
+				var selectComunas = '';
+				for(var i = 0; i < result.length; i++) {
+					selectComunas += '<option value="' + result[i].idComuna + '">' + result[i].comuna + '</option>';
+				}
+				$('#comuna').html(selectComunas);
+			}
+        });
+    });
+    
+	$("#fechanacimiento").datepicker({
+		format: "dd/mm/yyyy",
+	    language: "es",
+	    autoclose: true,
+	    todayHighlight: true
+	});
+	
+	$("#fechaingreso").datepicker({
+		format: "dd/mm/yyyy",
+	    language: "es",
+	    autoclose: true,
+	    todayHighlight: true
+	});
+</script>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<title>Psicologia</title>
+
+<!--JQUERY-->
+<script type="text/javascript" th:src="@{/js/jquery-3.6.0.js}"></script>
+
+<!--INPUT MASK-->
+<script type="text/javascript" th:src="@{/js/jquery.inputmask.js}"></script>
+
+<!-- FRAMEWORK BOOTSTRAP para el estilo de la pagina-->
+<link th:href="@{/css/bootstrap.min.css}" rel="stylesheet" />
+<script type="text/javascript" th:src="@{/js/bootstrap.min.js}"></script>
+
+<!-- Los iconos tipo Solid de Fontawesome-->
+<link th:href="@{/css/all.css}" rel="stylesheet" />
+<link th:href="@{/css/solid.css}" rel="stylesheet" />
+<script type="text/javascript" th:src="@{/js/all.js}"></script>
+
+<!-- Nuestro css-->
+<link rel="stylesheet" type="text/css" th:href="@{/css/custom/usuario.css}">
+
+<!-- Para inputMask -->
+<script type="text/javascript" th:src="@{/js/bootstrap.bundle.js}"></script>
+
+<!-- DATA TABLE -->
+<script type="text/javascript" th:src="@{/js/jquery.dataTables.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/dataTables.bootstrap4.min.js}"></script>
+<link rel="stylesheet" type="text/css" th:href="@{/css/dataTables.bootstrap4.min.css}">
+
+<!-- BOOTSTRAP DATEPICKER -->
+<script type="text/javascript" th:src="@{/js/bootstrap-datepicker.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/locales/bootstrap-datepicker.es.min.js}"></script>
+<link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap-datepicker.min.css}">
+
+</head>
+<body>
+	<div class="container">
+		<div class="encabezado">
+			<a id="cambiarPass" href="#" data-toggle="modal" data-target="#cambiarContrasenaModal">Cambiar Contrase&ntilde;a</a>
+			<a id="salir" th:href="@{/logout}">Salir</a>
+		</div>
+		<div class="mx-auto col-sm-12 main-section" id="tab-intervenciones" role="tablist">
+			<div class="alert alert-success text-center d-none" id="intervencionModificada" >Intervencion modificada</div>
+			<ul class="nav nav-tabs" id="tabIntervenciones" >
+				<li class="nav-item">
+					<a class="nav-link" th:classappend="${intervencionesTab}" id="intervenciones-tab" data-toggle="tab" href="#listaIntervenciones" role="tab" aria-controls="list" aria-selected="false">Intervenciones</a>
+				</li>
+			</ul>
+			<div class="tab-content" id="tabIntervenciones">
+				<div class="tab-pane fade show" id="listaIntervenciones" th:classappend="${intervencionesTab}" role="tabpanel" aria-labelledby="intervenciones-tab" >
+					<div class="card">
+						<div class="card-body">
+							<div th:include="intervencion/intervencionesLista.html" th:remove="tag"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+</div>
+<!-- <div th:include="intervencion/modalEditarIntervencion.html" th:remove="tag"></div> -->
+<div th:include="intervencion/modalVerIntervencionDetalle.html" th:remove="tag"></div>s
+</body>
+
+</html>

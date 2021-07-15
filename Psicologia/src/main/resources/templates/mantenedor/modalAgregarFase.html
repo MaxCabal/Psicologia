@@ -1,0 +1,43 @@
+<div class="modal fade modal-xl" id="modalAgregarFase" tabindex="-1" role="dialog"
+	aria-labelledby="modalAgregarFase" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+		
+			<div class="modal-header">
+				<h4 class="modal-title" id="myModalLabel">Agregar Fase</h4>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			
+			<div class="modal-body">
+				<div class="alert alert-danger text-center d-none" id="ErrorIntervencionAgregada" >Error al agregar fase</div>
+				<form id="formAgregarIntervencion" class="form" role="form" autocomplete="off" th:object="${fase}" th:action="@{/crearFase}" method="post">
+					
+					<div class="form-group row">
+						<label class="col-lg-3 col-form-label form-control-label">Fase :</label>
+						<div class="col-lg-9">
+							<input id="fase" class="form-control" type="text" th:field="${fase.faseDesc}">
+							<div class="alert-danger" th:if="${#fields.hasErrors('faseDesc')}" th:errors="*{faseDesc}" th:text="${err}"></div>
+						</div>
+					</div>
+					
+					<div class="form-group row">
+						<label class="col-lg-3 col-form-label form-control-label">Duracion :</label>
+						<div class="col-lg-9">
+							<input id="duracion" class="form-control" type="text" th:field="${fase.duracion}">
+							<div class="alert-danger" th:if="${#fields.hasErrors('duracion')}" th:errors="*{duracion}" th:text="${err}"></div>
+						</div>
+					</div>
+					
+					<div class="form-group row">
+						<div class="col-lg-12 text-center">
+							<button id="btnGuardarFase" type="submit" class="btn btn-primary">Agregar fase</button>
+						</div>
+					</div>
+					
+				</form>
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,38 +1,26 @@
 package com.max.psicologia.entity;
 
 import java.io.Serializable;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.Period;
-import java.time.format.DateTimeFormatter;
+import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-import javax.persistence.Transient;
-
 
 /**
- * The persistent class for the usuario database table.
+ * The persistent class for the profesional database table.
  * 
  */
 @Entity
-@NamedQuery(name="Usuario.findAll", query="SELECT u FROM Usuario u")
-public class Usuario implements Serializable {
+@NamedQuery(name="Profesional.findAll", query="SELECT p FROM Profesional p")
+public class Profesional implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	private String rut;
 
 	private String apellidos;
+
+	private String contrasena;
 
 	private String direccion;
 
@@ -44,12 +32,15 @@ public class Usuario implements Serializable {
 	@Column(name="fec_nac")
 	private Date fecNac;
 
-	private String nombres;
+	private String nombre;
+
+	@Column(name="nombre_usuario")
+	private String nombreUsuario;
 
 	private String telefono;
 
 	//bi-directional many-to-one association to Intervencion
-	@OneToMany(mappedBy="usuario")
+	@OneToMany(mappedBy="profesional")
 	private List<Intervencion> intervencions;
 
 	//bi-directional many-to-one association to Comuna
@@ -57,20 +48,20 @@ public class Usuario implements Serializable {
 	@JoinColumn(name="id_comuna")
 	private Comuna comuna;
 
-	//bi-directional many-to-one association to Estado
-	@ManyToOne
-	@JoinColumn(name="id_estado")
-	private Estado estado;
+	//bi-directional many-to-many association to Rol
+	@ManyToMany
+	@JoinTable(
+		name="profesional_rol"
+		, joinColumns={
+			@JoinColumn(name="rut")
+			}
+		, inverseJoinColumns={
+			@JoinColumn(name="id_rol")
+			}
+		)
+	private List<Rol> rols;
 
-	//bi-directional many-to-one association to TipoUsuario
-	@ManyToOne
-	@JoinColumn(name="id_tipo_usuario")
-	private TipoUsuario tipoUsuario;
-	
-	@Transient
-	private int edad;
-
-	public Usuario() {
+	public Profesional() {
 	}
 
 	public String getRut() {
@@ -87,6 +78,14 @@ public class Usuario implements Serializable {
 
 	public void setApellidos(String apellidos) {
 		this.apellidos = apellidos;
+	}
+
+	public String getContrasena() {
+		return this.contrasena;
+	}
+
+	public void setContrasena(String contrasena) {
+		this.contrasena = contrasena;
 	}
 
 	public String getDireccion() {
@@ -113,12 +112,20 @@ public class Usuario implements Serializable {
 		this.fecNac = fecNac;
 	}
 
-	public String getNombres() {
-		return this.nombres;
+	public String getNombre() {
+		return this.nombre;
 	}
 
-	public void setNombres(String nombres) {
-		this.nombres = nombres;
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+
+	public String getNombreUsuario() {
+		return this.nombreUsuario;
+	}
+
+	public void setNombreUsuario(String nombreUsuario) {
+		this.nombreUsuario = nombreUsuario;
 	}
 
 	public String getTelefono() {
@@ -139,14 +146,14 @@ public class Usuario implements Serializable {
 
 	public Intervencion addIntervencion(Intervencion intervencion) {
 		getIntervencions().add(intervencion);
-		intervencion.setUsuario(this);
+		intervencion.setProfesional(this);
 
 		return intervencion;
 	}
 
 	public Intervencion removeIntervencion(Intervencion intervencion) {
 		getIntervencions().remove(intervencion);
-		intervencion.setUsuario(null);
+		intervencion.setProfesional(null);
 
 		return intervencion;
 	}
@@ -159,24 +166,12 @@ public class Usuario implements Serializable {
 		this.comuna = comuna;
 	}
 
-	public Estado getEstado() {
-		return this.estado;
+	public List<Rol> getRols() {
+		return this.rols;
 	}
 
-	public void setEstado(Estado estado) {
-		this.estado = estado;
-	}
-
-	public TipoUsuario getTipoUsuario() {
-		return this.tipoUsuario;
-	}
-
-	public void setTipoUsuario(TipoUsuario tipoUsuario) {
-		this.tipoUsuario = tipoUsuario;
-	}
-	
-	public int getEdad() {
-		return Period.between(LocalDate.parse(new SimpleDateFormat("dd/MM/yyyy").format(fecNac), DateTimeFormatter.ofPattern("dd/MM/yyyy")), LocalDate.now()).getYears();
+	public void setRols(List<Rol> rols) {
+		this.rols = rols;
 	}
 
 }

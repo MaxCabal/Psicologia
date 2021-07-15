@@ -1,7 +1,18 @@
-body {
-    background: url(../img/fondo.jpg) no-repeat center center;
-    size: cover;
-}	
+.container {
+  height:50%;
+  display:flex;
+  align-items:center; /* vertically aligned! */
+  justify-content: center;
+}
+
+.other {
+  height:1200px;
+  position: relative;
+}
+
+.boton {
+	margin: 10px;
+}
 
 .main-section {
     margin: auto;

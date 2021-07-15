@@ -1,0 +1,49 @@
+.encabezado {
+	text-align: right;
+	display: inline-block;
+  	width: 100%;
+}
+
+.encabezado a#salir::before {
+	font-family: "Font Awesome\ 5 Free";
+	content: "\f2f5";
+	font-weight: 900; /* needed */
+	padding-right: 5px;
+}
+
+.encabezado a#cambiarPass {
+	padding-right: 30px;
+}
+
+.encabezado a#cambiarPass::before {
+	font-family: "Font Awesome\ 5 Free";
+	content: "\f3c1";
+	font-weight: 900; /* needed */
+	padding-right: 5px;
+}
+
+/* .tabs { */
+/* 	background-color: white; */
+/* } */
+
+.nombresApellidos {
+	font-size: 22px;
+	font-weight: 450;
+}
+
+.main-section {
+    margin:0 auto;
+    margin-top:5%;
+}
+
+.tblUsuarios {
+    font-size: 12px;
+}
+
+.tblIntervenciones {
+    font-size: 13px;
+}
+
+.dependiente {
+	margin-top: 20px;
+}

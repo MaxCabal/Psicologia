@@ -21,16 +21,7 @@ public class Instrumento implements Serializable {
 	private String instrumento;
 
 	//bi-directional many-to-many association to Fase
-	@ManyToMany
-	@JoinTable(
-		name="fase_has_instrumento"
-		, joinColumns={
-			@JoinColumn(name="instrumento_id_instrumento")
-			}
-		, inverseJoinColumns={
-			@JoinColumn(name="Fase_id_fase")
-			}
-		)
+	@ManyToMany(mappedBy="instrumentos")
 	private List<Fase> fases;
 
 	public Instrumento() {

@@ -1,0 +1,121 @@
+<div class="modal fade modal-xl" id="modalVerIntervencionDetalle" tabindex="-1" role="dialog"
+	aria-labelledby="modalAgregarIntervencionLabel" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title" id="myModalLabel">Detalle Intervencion</h4>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<form id="formAgregarIntervencion" class="form" role="form" autocomplete="off" method="post">
+					<div class="form-group row">
+						<label class="col-lg-4 col-form-label form-control-label">Observaciones</label>
+						<div class="col-lg-8">
+							<textarea id="observaciones" class="form-control rounded-0" rows="3" maxlength="500" ></textarea>
+						</div>
+					</div>
+					<div class="form-group row">
+						<label class="col-lg-4 col-form-label form-control-label">Objetivo</label>
+						<div class="col-lg-8">
+							<textarea id="objetivo" class="form-control rounded-0" rows="3" maxlength="500" ></textarea>
+						</div>
+					</div>
+					<div class="form-group row">
+						<label class="col-lg-4 col-form-label form-control-label">Fecha	Intervencion :</label>
+						<div class="col-lg-8">
+							<input id="fechaIntervencion" class="form-control" type="text" th:field="${intervencion.fecha}">
+						</div>
+					</div>
+					<div class="form-group row">
+						<label class="col-lg-4 col-form-label form-control-label">Fecha	Control :</label>
+						<div class="col-lg-8">
+							<input id="fechaControl" class="form-control" type="text" th:field="${intervencion.fecControl}">
+						</div>
+					</div>
+					<div class="form-group row">
+						<label class="col-lg-4 col-form-label form-control-label">Fase</label>
+						<div class="col-lg-8">
+							<select class="form-control" id="fase" th:field="${intervencion.fase}">
+				 				<option th:each="fase :${fases}" th:value="${fase.idFase}" th:text="${fase.fase}" th:selected="(${fase.idFase == faseSelected})">
+				 				</option>
+							</select>
+						</div>
+					</div>
+					<div class="form-group row">
+						<label class="col-lg-4 col-form-label form-control-label">Tipo Intervencion</label>
+						<div class="col-lg-8">
+							<select class="form-control" id="tipoIntervencion" th:field="${intervencion.tipoIntervencion}">
+				 				<option th:each="tipoIntervencion :${tiposIntervenciones}" th:value="${tipoIntervencion.idTipoIntervencion}" th:text="${tipoIntervencion.tipoIntervencion}" th:selected="(${tipoIntervencion.idTipoIntervencion == tipoIntervencionSelected})">
+				 				</option>
+							</select>
+						</div>
+					</div>
+					<div class="form-group row">
+						<label class="col-lg-4 col-form-label form-control-label">Valor</label>
+						<div class="col-lg-8">
+							<input id="valor" class="form-control" type="number" th:field="${intervencion.valor}">
+						</div>
+					</div>
+					<div class="alert alert-danger text-center"
+						th:if="${formErrorMessage}" th:text="${formErrorMessage}">Error	Message</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+<script>
+
+var editMode = false;
+
+	$(document).on('show.bs.modal','#modalVerIntervencionDetalle', function (e) {
+		if(editMode == false) {
+			var href = $(e.relatedTarget);
+		    var idIntervencion = href.data('whatever');
+			editMode = true;
+			$.ajax({
+		           type: "POST",
+		           url: "modalVerIntervencionDetalle/"+idIntervencion,
+// 		           data: form.serialize(), // serializes the form's elements.
+		           success: function(result) {
+		        	    $('#observaciones').val(result.observaciones);
+						$('#objetivo').val(result.objetivo);
+						$('#fechaIntervencion').val(result.fecha);
+						$('#fechaControl').val(result.fechaControl);
+						$('#valor').val(result.valor);
+		           }
+			});
+		}
+
+	})
+
+	$("#formAgregarIntervencion").submit(function(e) {
+		e.preventDefault(); // avoid to execute the actual submit of the form.
+	    var form = $(this);
+	    var url = form.attr('action');
+	    $.ajax({
+	           type: "POST",
+	           url: url,
+	           data: form.serialize(), // serializes the form's elements.
+	           success: function(data)
+	           {
+	        	    $("#ErrorIntervencionAgregada").addClass( "d-none" );
+		        	$("#intervencionAgregada").removeClass( "d-none" );
+		            $("#intervencionAgregada").html("Intervencion agregada correctamente");
+
+		            $('#modalAgregarIntervencion').modal('toggle');
+		            setTimeout(function(){	$("#intervencionAgregada").hide('slow'); }, 3000);
+	           },
+	           error : function(e) {
+	        	   $("#ErrorIntervencionAgregada").removeClass( "d-none" );
+	        	   $("#intervencionAgregada").addClass( "d-none" );
+	        	   $("#ErrorIntervencionAgregada").html(e.responseText);
+	        	   $("#ErrorIntervencionAgregada").show();
+	        	   setTimeout(function(){	
+	        		   $("#ErrorIntervencionAgregada").hide('slow'); 
+	        	   }, 3000);
+	           }
+	    });
+	});
+</script>

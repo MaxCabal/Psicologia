@@ -22,9 +22,9 @@ public class Rol implements Serializable {
 
 	private String rol;
 
-	//bi-directional many-to-many association to Cliente
+	//bi-directional many-to-many association to Profesional
 	@ManyToMany(mappedBy="rols")
-	private List<Cliente> clientes;
+	private List<Profesional> profesionals;
 
 	public Rol() {
 	}
@@ -53,12 +53,12 @@ public class Rol implements Serializable {
 		this.rol = rol;
 	}
 
-	public List<Cliente> getClientes() {
-		return this.clientes;
+	public List<Profesional> getProfesionals() {
+		return this.profesionals;
 	}
 
-	public void setClientes(List<Cliente> clientes) {
-		this.clientes = clientes;
+	public void setProfesionals(List<Profesional> profesionals) {
+		this.profesionals = profesionals;
 	}
 
 }

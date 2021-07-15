@@ -1,8 +1,20 @@
 package com.max.psicologia.entity;
 
 import java.io.Serializable;
-import javax.persistence.*;
 import java.util.Date;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.persistence.Transient;
+
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 
 /**
@@ -11,6 +23,8 @@ import java.util.Date;
  */
 @Entity
 @NamedQuery(name="Intervencion.findAll", query="SELECT i FROM Intervencion i")
+@NoArgsConstructor
+@Data
 public class Intervencion implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -32,15 +46,21 @@ public class Intervencion implements Serializable {
 	@Column(name="referencia_instrumento")
 	private int referenciaInstrumento;
 
-	@Column(name="visita_id_visita")
-	private int visitaIdVisita;
+	private int valor;
 
 	//bi-directional many-to-one association to Fase
 	@ManyToOne
+	@JoinColumn(name="id_fase")
 	private Fase fase;
+
+	//bi-directional many-to-one association to Profesional
+	@ManyToOne
+	@JoinColumn(name="rut_profesional")
+	private Profesional profesional;
 
 	//bi-directional many-to-one association to Sesion
 	@ManyToOne
+	@JoinColumn(name="id_sesion")
 	private Sesion sesion;
 
 	//bi-directional many-to-one association to TipoIntervencion
@@ -52,12 +72,12 @@ public class Intervencion implements Serializable {
 	@ManyToOne
 	@JoinColumn(name="rut")
 	private Usuario usuario;
-
-	public Intervencion() {
-	}
+	
+	@Transient
+	private String rut;
 
 	public int getIdIntervencion() {
-		return this.idIntervencion;
+		return idIntervencion;
 	}
 
 	public void setIdIntervencion(int idIntervencion) {
@@ -65,7 +85,7 @@ public class Intervencion implements Serializable {
 	}
 
 	public Date getFecControl() {
-		return this.fecControl;
+		return fecControl;
 	}
 
 	public void setFecControl(Date fecControl) {
@@ -73,7 +93,7 @@ public class Intervencion implements Serializable {
 	}
 
 	public Date getFecha() {
-		return this.fecha;
+		return fecha;
 	}
 
 	public void setFecha(Date fecha) {
@@ -81,7 +101,7 @@ public class Intervencion implements Serializable {
 	}
 
 	public String getObjetivo() {
-		return this.objetivo;
+		return objetivo;
 	}
 
 	public void setObjetivo(String objetivo) {
@@ -89,7 +109,7 @@ public class Intervencion implements Serializable {
 	}
 
 	public String getObservaciones() {
-		return this.observaciones;
+		return observaciones;
 	}
 
 	public void setObservaciones(String observaciones) {
@@ -97,31 +117,39 @@ public class Intervencion implements Serializable {
 	}
 
 	public int getReferenciaInstrumento() {
-		return this.referenciaInstrumento;
+		return referenciaInstrumento;
 	}
 
 	public void setReferenciaInstrumento(int referenciaInstrumento) {
 		this.referenciaInstrumento = referenciaInstrumento;
 	}
 
-	public int getVisitaIdVisita() {
-		return this.visitaIdVisita;
+	public int getValor() {
+		return valor;
 	}
 
-	public void setVisitaIdVisita(int visitaIdVisita) {
-		this.visitaIdVisita = visitaIdVisita;
+	public void setValor(int valor) {
+		this.valor = valor;
 	}
 
 	public Fase getFase() {
-		return this.fase;
+		return fase;
 	}
 
 	public void setFase(Fase fase) {
 		this.fase = fase;
 	}
 
+	public Profesional getProfesional() {
+		return profesional;
+	}
+
+	public void setProfesional(Profesional profesional) {
+		this.profesional = profesional;
+	}
+
 	public Sesion getSesion() {
-		return this.sesion;
+		return sesion;
 	}
 
 	public void setSesion(Sesion sesion) {
@@ -129,7 +157,7 @@ public class Intervencion implements Serializable {
 	}
 
 	public TipoIntervencion getTipoIntervencion() {
-		return this.tipoIntervencion;
+		return tipoIntervencion;
 	}
 
 	public void setTipoIntervencion(TipoIntervencion tipoIntervencion) {
@@ -137,11 +165,21 @@ public class Intervencion implements Serializable {
 	}
 
 	public Usuario getUsuario() {
-		return this.usuario;
+		return usuario;
 	}
 
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
 	}
+
+	public String getRut() {
+		return rut;
+	}
+
+	public void setRut(String rut) {
+		this.rut = rut;
+	}
+
+	
 
 }

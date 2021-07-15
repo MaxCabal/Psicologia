@@ -16,10 +16,11 @@ public class TipoIntervencion implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@Column(name="id_intervencion")
-	private int idIntervencion;
+	@Column(name="id_tipo_intervencion")
+	private int idTipoIntervencion;
 
-	private String intervencion;
+	@Column(name="tipo_intervencion")
+	private String tipoIntervencion;
 
 	//bi-directional many-to-one association to Intervencion
 	@OneToMany(mappedBy="tipoIntervencion")
@@ -28,20 +29,20 @@ public class TipoIntervencion implements Serializable {
 	public TipoIntervencion() {
 	}
 
-	public int getIdIntervencion() {
-		return this.idIntervencion;
+	public int getIdTipoIntervencion() {
+		return this.idTipoIntervencion;
 	}
 
-	public void setIdIntervencion(int idIntervencion) {
-		this.idIntervencion = idIntervencion;
+	public void setIdTipoIntervencion(int idTipoIntervencion) {
+		this.idTipoIntervencion = idTipoIntervencion;
 	}
 
-	public String getIntervencion() {
-		return this.intervencion;
+	public String getTipoIntervencion() {
+		return this.tipoIntervencion;
 	}
 
-	public void setIntervencion(String intervencion) {
-		this.intervencion = intervencion;
+	public void setTipoIntervencion(String tipoIntervencion) {
+		this.tipoIntervencion = tipoIntervencion;
 	}
 
 	public List<Intervencion> getIntervencions() {

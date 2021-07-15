@@ -25,6 +25,10 @@ public class Comuna implements Serializable {
 	@JoinColumn(name="id_region")
 	private Region region;
 
+	//bi-directional many-to-one association to Profesional
+	@OneToMany(mappedBy="comuna")
+	private List<Profesional> profesionals;
+
 	//bi-directional many-to-one association to Usuario
 	@OneToMany(mappedBy="comuna")
 	private List<Usuario> usuarios;
@@ -54,6 +58,28 @@ public class Comuna implements Serializable {
 
 	public void setRegion(Region region) {
 		this.region = region;
+	}
+
+	public List<Profesional> getProfesionals() {
+		return this.profesionals;
+	}
+
+	public void setProfesionals(List<Profesional> profesionals) {
+		this.profesionals = profesionals;
+	}
+
+	public Profesional addProfesional(Profesional profesional) {
+		getProfesionals().add(profesional);
+		profesional.setComuna(this);
+
+		return profesional;
+	}
+
+	public Profesional removeProfesional(Profesional profesional) {
+		getProfesionals().remove(profesional);
+		profesional.setComuna(null);
+
+		return profesional;
 	}
 
 	public List<Usuario> getUsuarios() {

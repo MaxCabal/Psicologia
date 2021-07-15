@@ -1,0 +1,35 @@
+<div class="table-responsive tblAtenciones">
+    <table id="tblAtencionesAtendidas" class="table table-bordered table-hover table-striped">
+        <thead class="thead-light">
+            <tr>
+                <th scope="col">Fecha de Intervencion</th>
+                <th scope="col">Rut</th>
+                <th scope="col">Nombres</th>
+                <th scope="col">Apellidos</th>
+                <th scope="col">Edad</th>
+                <th scope="col">Proximo Control</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="intervencion: ${intervencionLista}">
+                <td th:text="${#dates.format(intervencion.fecha, 'dd/MM/yyyy')}"></td>
+                <td th:text="${intervencion.usuario.rut}"></td>
+                <td th:text="${intervencion.usuario.nombres}"></td>
+                <td th:text="${intervencion.usuario.apellidos}"></td>
+                <td th:text="${intervencion.usuario.edad}"></td>
+                <td th:text="${#dates.format(intervencion.fecControl, 'dd/MM/yyyy')}"></td>
+                <td>
+                    <a th:id="${intervencion.rut}"  data-toggle="modal" data-target="#modalVerIntervencionDetalle" th:attr="data-whatever=${intervencion.idIntervencion}" title="Ver detalle" href="#addBookDialog" >
+                    	<i class="fas fa-search"></i>
+                    </a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    	<div class="form-group row" id="boton">
+		<div class="col-lg-12 text-center">
+			<a th:href="@{/usuarios} + '/' + ${tipousuario}" class="btn btn-primary"> <i class="fa fa-user"></i>&nbsp;Usuarios</a>
+		</div>
+	</div>
+</div>

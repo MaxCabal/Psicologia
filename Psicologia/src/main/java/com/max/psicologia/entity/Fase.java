@@ -20,10 +20,20 @@ public class Fase implements Serializable {
 
 	private int duracion;
 
-	private String fase;
+	@Column(name="fase")
+	private String faseDesc;
 
 	//bi-directional many-to-many association to Instrumento
-	@ManyToMany(mappedBy="fases")
+	@ManyToMany
+	@JoinTable(
+		name="fase_instrumento"
+		, joinColumns={
+			@JoinColumn(name="id_fase")
+			}
+		, inverseJoinColumns={
+			@JoinColumn(name="id_instrumento")
+			}
+		)
 	private List<Instrumento> instrumentos;
 
 	//bi-directional many-to-one association to Intervencion
@@ -49,12 +59,12 @@ public class Fase implements Serializable {
 		this.duracion = duracion;
 	}
 
-	public String getFase() {
-		return this.fase;
+	public String getFaseDesc() {
+		return this.faseDesc;
 	}
 
-	public void setFase(String fase) {
-		this.fase = fase;
+	public void setFaseDesc(String fase) {
+		this.faseDesc = fase;
 	}
 
 	public List<Instrumento> getInstrumentos() {
