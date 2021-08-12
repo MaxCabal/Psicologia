@@ -8,10 +8,10 @@
         </thead>
         <tbody>
             <tr th:each="tipoIntervencion: ${tipoIntervenciones}">
-                <td th:text="${tipoIntervencion.tipoIntervencion}"></td>
+                <td th:text="${tipoIntervencion.tipoIntervencionDesc}"></td>
                 <td> 
-                    <a data-toggle="modal" data-target="#modalAgregarFase" th:attr="data-whatever=${tipoIntervencion.idTipoIntervencion}" href="#addBookDialog" >
-                    	<i class="fa fa-trash" data-toggle="tooltip" data-placement="top" title="Eliminar Tipo interevencion"></i>  
+                    <a href="#" th:onclick="'javascript:confirmarBorrarTipoIntervencion(\''+ ${tipoIntervencion.idTipoIntervencion} +'\');'" >
+                    	<i class="fa fa-trash" data-toggle="tooltip" data-placement="top" title="Eliminar Fase"></i>  
                     </a>
                 </td>
             </tr>
@@ -19,11 +19,10 @@
     </table>
     <div class="form-group row" id="boton">
 		<div class="col-lg-12 text-center">
-			<button id="btnNuevo" type="button" class="btn btn-primary"><i class="fa fa-medkit"></i>&nbsp;Nuevo Tipo</button>
-			<a th:href="@{/usuarios}" class="btn btn-primary"> <i class="fa fa-user"></i>&nbsp;Usuarios</a>
+		<button id="btn" type="button" data-toggle="modal" data-target="#modalAgregarTipoIntervencion" class="btn btn-primary"><i class="fa fa-medkit"></i>&nbsp;Nuevo Tipo</button>
+			<a th:href="@{/usuarios/{id}(id=${idTipoUsuario})}" class="btn btn-primary"> <i class="fa fa-user"></i>&nbsp;Usuarios</a>
 			<a th:href="@{/intervenciones}" class="btn btn-primary"> <i class="fa fa-stethoscope"></i>&nbsp;Intervenciones</a>
 		</div>
-	</div>
 </div>
 <script>
 	$(document).ready(function() {
@@ -35,4 +34,34 @@
 		});
 		
 	});
+	
+	function confirmarBorrarTipoIntervencion(id){
+		$('#modalBorrartipoIntervencion').modal('show');
+		$("#tipoIntervencionIdHiddenInput").val(id);
+	}
+
+	function borrarTipoIntervencion(){
+		var id = $("#tipoIntervencionIdHiddenInput").val();
+	    var url = "borrartipoIntervencion/"+id;
+	    $.ajax({
+	           type: "GET",
+	           url: url,
+	           success: function()
+	           {
+		       	    $("#tipoIntervencionBorrada").removeClass( "d-none" );
+		    	    setTimeout(function(){	$("#tipoIntervencionBorrada").hide('slow'); }, 3000);
+		    	    $('#modalBorrartipoIntervencion').modal('hide');
+	           },
+	           error : function(e) {
+	        	   $("#ErrorTipoIntervencionBorrada").removeClass( "d-none" );
+	        	   $("#tipoIntervencionBorrada").addClass( "d-none" );
+	        	   $("#ErrorTipoIntervencionBorrada").html(e.responseText);
+	        	   $("#ErrorTipoIntervencionBorrada").show();
+	        	   setTimeout(function(){	
+	        		   $("#ErrorTipoIntervencionBorrada").hide('slow'); 
+	        	   }, 3000);
+	        	   $('#modalBorrartipoIntervencion').modal('hide');
+	           }
+	 	});
+	}
 </script>

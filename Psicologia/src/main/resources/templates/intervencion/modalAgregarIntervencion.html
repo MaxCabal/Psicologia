@@ -42,7 +42,7 @@
 						<label class="col-lg-3 col-form-label form-control-label">Fase</label>
 						<div class="col-lg-9">
 							<select class="form-control" id="fase" th:field="${intervencion.fase}">
-				 				<option th:each="fase :${fases}" th:value="${fase.idFase}" th:text="${fase.fase}" th:selected="(${fase.idFase == faseSelected})">
+				 				<option th:each="fase :${fases}" th:value="${fase.idFase}" th:text="${fase.faseDesc}" th:selected="(${fase.idFase == faseSelected})">
 				 				</option>
 							</select>
 						</div>

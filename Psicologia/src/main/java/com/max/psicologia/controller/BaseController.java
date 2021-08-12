@@ -14,17 +14,19 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 
 import com.max.psicologia.entity.Estado;
+import com.max.psicologia.entity.Fase;
 import com.max.psicologia.entity.Intervencion;
 import com.max.psicologia.entity.TipoUsuario;
 import com.max.psicologia.entity.Usuario;
 import com.max.psicologia.repository.ComunaRepository;
 import com.max.psicologia.repository.EstadoRepository;
-import com.max.psicologia.repository.FaseRepository;
 import com.max.psicologia.repository.IntervencionRepository;
 import com.max.psicologia.repository.ProfesionalRepository;
 import com.max.psicologia.repository.RegionRepository;
 import com.max.psicologia.repository.TipoIntervencionRepository;
 import com.max.psicologia.repository.TipoUsuarioRepository;
+import com.max.psicologia.service.FaseService;
+import com.max.psicologia.service.TipoIntervencionService;
 import com.max.psicologia.service.UsuarioService;
 
 @Controller
@@ -54,10 +56,10 @@ public class BaseController {
 	EstadoRepository estadoRepository;
 	
 	@Autowired
-	FaseRepository faseRepository;
+	FaseService faseService;
 	
 	@Autowired
-	TipoIntervencionRepository tipoIntervencionRepository;
+	TipoIntervencionService tipoIntervencionService;
 	
 	@Value("${default.region}")
 	private String defaultRegion;
@@ -79,9 +81,8 @@ public class BaseController {
 	
 	protected void agregarAttributosBase(Model model) {
 		agregarNuevaRegionComuna(model);
-		agregarNuevaIntervencion(model);
-		model.addAttribute("fases", faseRepository.findAll());
-		model.addAttribute("tiposIntervenciones", tipoIntervencionRepository.findAll());
+		agregarTiposFaseIntervenciones(model);
+		model.addAttribute("intervencion", new Intervencion());
 		model.addAttribute("usuario", new Usuario());
 	}
 	
@@ -91,9 +92,10 @@ public class BaseController {
 		model.addAttribute("comunas", comunaRepository.findByIdRegion(Integer.parseInt(defaultRegion)));
 	}
 	
-	protected void agregarNuevaIntervencion(Model model) {
-		Intervencion intervencionNueva = new Intervencion();
-		model.addAttribute("intervencion", intervencionNueva);
+	protected void agregarTiposFaseIntervenciones(Model model) {
+		model.addAttribute("fase", new Fase());
+		model.addAttribute("fases", faseService.findAll());
+		model.addAttribute("tipoIntervenciones", tipoIntervencionService.findAll());
 	}
 	
 	protected TipoUsuario getTipoBySession(int tipo) {

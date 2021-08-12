@@ -12,7 +12,7 @@
                 <td th:text="${fase.faseDesc}"></td>
                 <td th:text="${fase.duracion}"></td>
                 <td> 
-                    <a data-toggle="modal" th:attr="data-whatever=${fase.idFase}" href="#addBookDialog" >
+                    <a href="#" th:onclick="'javascript:confirmarBorrarFase(\''+ ${fase.idFase} +'\');'" >
                     	<i class="fa fa-trash" data-toggle="tooltip" data-placement="top" title="Eliminar Fase"></i>  
                     </a>
                 </td>
@@ -37,4 +37,25 @@
 		});
 		
 	});
+	
+	function confirmarBorrarFase(id){
+		$('#modalBorrarFase').modal('show');
+		$("#faseIdHiddenInput").val(id);
+	}
+
+	function borrarFase(){
+		var id = $("#faseIdHiddenInput").val();
+	    var url = "borrarFase/"+id;
+	    $.ajax({
+	           type: "GET",
+	           url: url,
+	           success: function()
+	           {
+		       	    $("#faseBorrada").removeClass( "d-none" );
+		    	    setTimeout(function(){	$("#faseBorrada").hide('slow'); }, 3000);
+		    	    $('#modalBorrarFase').modal('hide');
+	           }
+	 	}); 
+	}
+	
 </script>

@@ -1,0 +1,35 @@
+<div class="modal fade modal-xl" id="modalAgregarTipoIntervencion" tabindex="-1" role="dialog"
+	aria-labelledby="modalAgregarTipoIntervencion" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+		
+			<div class="modal-header">
+				<h4 class="modal-title" id="myModalLabel">Agregar Tipo Intervencion</h4>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			
+			<div class="modal-body">
+				<div class="alert alert-danger text-center d-none" id="ErrorIntervencionAgregada" >Error al agregar intervencion</div>
+				<form id="formAgregarTipoIntervencion" class="form" role="form" autocomplete="off" th:object="${tipoIntervencion}" th:action="@{/crearTipoIntervencion}" method="post">
+					
+					<div class="form-group row">
+						<label class="col-lg-3 col-form-label form-control-label">Fase :</label>
+						<div class="col-lg-9">
+							<input id="tipoIntervencion" class="form-control" type="text" th:field="${tipoIntervencion.tipoIntervencionDesc}">
+							<div class="alert-danger" th:if="${#fields.hasErrors('tipoIntervencionDesc')}" th:errors="*{tipoIntervencionDesc}" th:text="${err}"></div>
+						</div>
+					</div>
+					
+					<div class="form-group row">
+						<div class="col-lg-12 text-center">
+							<button id="btnGuardarTipoIntervencion" type="submit" class="btn btn-primary">Agregar fase</button>
+						</div>
+					</div>
+					
+				</form>
+			</div>
+		</div>
+	</div>
+</div>

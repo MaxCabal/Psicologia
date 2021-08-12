@@ -20,7 +20,7 @@ public class TipoIntervencion implements Serializable {
 	private int idTipoIntervencion;
 
 	@Column(name="tipo_intervencion")
-	private String tipoIntervencion;
+	private String tipoIntervencionDesc;
 
 	//bi-directional many-to-one association to Intervencion
 	@OneToMany(mappedBy="tipoIntervencion")
@@ -37,12 +37,12 @@ public class TipoIntervencion implements Serializable {
 		this.idTipoIntervencion = idTipoIntervencion;
 	}
 
-	public String getTipoIntervencion() {
-		return this.tipoIntervencion;
+	public String getTipoIntervencionDesc() {
+		return this.tipoIntervencionDesc;
 	}
 
-	public void setTipoIntervencion(String tipoIntervencion) {
-		this.tipoIntervencion = tipoIntervencion;
+	public void setTipoIntervencionDesc(String tipoIntervencion) {
+		this.tipoIntervencionDesc = tipoIntervencion;
 	}
 
 	public List<Intervencion> getIntervencions() {

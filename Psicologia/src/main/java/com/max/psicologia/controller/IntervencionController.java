@@ -66,9 +66,9 @@ public class IntervencionController extends BaseController {
 	@ResponseBody
 	public IntervencionDetalleDto modalVerIntervencionDetalle(@PathVariable(name = "idIntervencion") int idIntervencion, Model model) {
 		Intervencion intervencion= intervencionRepository.findById(idIntervencion).get();
-		model.addAttribute("fases", faseRepository.findAll());
+		model.addAttribute("fases", faseService.findAll());
 		model.addAttribute("faseSelected", intervencion.getFase().getIdFase());
-		model.addAttribute("tiposIntervenciones", tipoIntervencionRepository.findAll());
+		model.addAttribute("tiposIntervenciones", tipoIntervencionService.findAll());
 		model.addAttribute("tiposIntervenciones", intervencion.getTipoIntervencion().getIdTipoIntervencion());
 		return Parser.toIntervencionDto(intervencion);
 	}

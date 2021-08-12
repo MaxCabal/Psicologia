@@ -45,8 +45,10 @@
 			<a id="salir" th:href="@{/logout}">Salir</a>
 		</div>
 		<div class="mx-auto col-sm-12 main-section" id="containerTabsUsuario" role="tablist">
-			<div class="alert alert-success text-center d-none" id="intervencionAgregada" >Intervencion agregada</div>
 			<div class="alert alert-success text-center d-none" id="contrasenaCambiada" >Contrasena cambiada</div>
+			<div class="alert alert-success text-center d-none" id="faseBorrada" >Fase borrada</div>
+			<div class="alert alert-success text-center d-none" id="tipoIntervencionBorrada" >Tipo Intervencion borrada</div>
+			<div class="alert alert-danger text-center d-none" id="ErrorTipoIntervencionBorrada" >Error al borrar Tipo Intervencion</div>
 			<ul class="nav nav-tabs" id="tabsUsuarios" >
 				<li class="nav-item">
 					<a class="nav-link tabs" th:classappend="${faseTab}" id="list-tab" data-toggle="tab" href="#listaFases" role="tab" aria-controls="list" aria-selected="false">Fases</a>
@@ -71,6 +73,8 @@
 					</div>
 				</div>
 				<div th:include="mantenedor/modalAgregarFase.html" th:remove="tag"></div>
+				<div th:include="mantenedor/modalBorrarFase.html" th:remove="tag"></div>
+				<div th:include="mantenedor/modalBorrarTipoIntervencion.html" th:remove="tag"></div>
 			</div>
 		</div>
 	</div>
